@@ -1,6 +1,6 @@
 class Solution {
     
-    public String[] solution(String[][] tickets) {
+    public boolean solution(String[] phone_book) {
 
     }
 
