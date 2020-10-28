@@ -32,13 +32,23 @@ long long solution(int n, vector<int> times) {
             break;
         }
 
-//        cout << "시간: " << answer << endl;
+        /**
+         * long long 타입으로 안해주니까 범위를 벗어나게 되면서 실패뜸
+         */
         long long cnt = 0;
         for(int time: times) {
+            // 어차피 나눠지는 값이 더 작은 경우는 의미없다.
+            // 다만, 아직 한번도 선택하지 않은 경우는 무조건 선택하도록 한다.
+            // 반례 ) 1, [2, 2] 답: 1
             if(time > answer && cnt > 0) break;
             cnt += answer/time;
         }
 
+        /**
+         * cnt == n인경우에 빠져나가면 반례에 걸림
+         * 6, [6, 10] 답:24
+         * 그치만 26인경우에 걸려버리게 됨.
+         */
         if(cnt >= n) { // 더 작은값 선택
             maxTime = answer;
             answer /= 2;
@@ -51,11 +61,12 @@ long long solution(int n, vector<int> times) {
             } else {
                 answer = (maxTime+answer)/2;
             }
-        } else {
-            break;
         }
     }
 
+    /**
+     * 1명인경우는 -1 해줘야함
+     */
     if(n == 1) {
         answer--;
     }
